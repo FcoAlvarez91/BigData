@@ -1,9 +1,7 @@
+from decouple import config
 import boto3
 import pandas as pd
 
-"""# Credenciales"""
-aws_access_key_id = 'AKIA4UBERADCSNV2X5WC'
-aws_secret_access_key = '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'
 
 
 def cleanQueryResult(result) :
@@ -11,8 +9,8 @@ def cleanQueryResult(result) :
             for row in result['ResultSet']['Rows']]
 
 def pedirCosas():
-    athena = boto3.client('athena', region_name="us-east-1", aws_access_key_id=aws_access_key_id,
-                      aws_secret_access_key=aws_secret_access_key)
+    athena = boto3.client('athena', region_name="us-east-1", aws_access_key_id=config('aws_access_key_id'),
+                      aws_secret_access_key=config('aws_secret_access_key'))
     Query = 'SELECT * FROM rio_unido_ WHERE 20000<listing_id AND listing_id<40000 LIMIT 10'
     athena_job_query = athena.start_query_execution(
         QueryString=Query,
