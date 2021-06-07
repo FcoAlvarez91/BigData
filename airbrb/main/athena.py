@@ -28,7 +28,7 @@ def pedirCosas():
     while (athena_job_status_query['QueryExecution']['Status']['State'] == 'QUEUED' or
         athena_job_status_query['QueryExecution']['Status']['State'] == 'RUNNING'):
         athena_job_status_query = athena.get_query_execution(QueryExecutionId=query_execution_id)
-        print(f"\r{athena_job_status_query['QueryExecution']['Status']['State']}")
+        #print(f"\r{athena_job_status_query['QueryExecution']['Status']['State']}")
 
     args = {
         'QueryExecutionId': query_execution_id,
