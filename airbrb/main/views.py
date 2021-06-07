@@ -5,7 +5,7 @@ from .query import query_agreggator
 from .models import Query
 from django.db.models import Sum
 from django.http import JsonResponse
-
+from random import randint
 # Create your views here.
 
 def home(response):
@@ -16,25 +16,27 @@ def home(response):
 def graph(response):
 	labels = []
 	data = []
+	rColours = []
 
 	for row in pedirCosas()[1:]:
 		labels.append(row[0])
 		data.append(row[1])
+		rColours.append([randint(0,255),randint(0,255),randint(0,255)])
 
 	print("graph 1")
 
-	return render(response, "main/graph.html", {"var1":123213,"labels":labels,"data":data})
+	return render(response, "main/graph.html", {"labels":labels,"data":data,"rColours":rColours})
 
 	
 def graph2(response):
-	labels = []
-	data = []
+	showData = []
 	
 	for row in pedirCosas()[1:]:
-		labels.append(row[0])
-		data.append(row[1])
+		showData.append([row[0],row[1], randint(0,255),randint(0,255),randint(0,255)])
+	print(showData)
 
-	return render(response, "main/graph2.html", {"var1":123213,"labels":labels,"data":data})
+
+	return render(response, "main/graph2.html", {"showData":showData})
 
 def city(response):
 	return render(response, "main/city.html", {})

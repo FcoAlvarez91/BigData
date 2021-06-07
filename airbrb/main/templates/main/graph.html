@@ -18,8 +18,15 @@
         datasets: [{
           data: {{ data|safe }},
           backgroundColor: [
-            '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
+            {% for c in rColours %}
+            'rgba({{c.0}}, {{c.1}}, {{c.2}}, 0.6)',
+            {% endfor %}
           ],
+          borderColor: [
+              {% for c in rColours %}
+                'rgba({{c.0}}, {{c.1}}, {{c.2}}, 1)',
+              {% endfor %}
+            ],
           label: 'Population'
         }],
         labels: {{ labels|safe }}
