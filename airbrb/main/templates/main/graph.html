@@ -1,21 +1,15 @@
 {% extends 'main/base.html' %}
 {% block content %}
 
-
-<h1> The world has been said hello </h1>
-<h2> And the world said hello back </h2>
-<h4>{{var1}}</h4>
-<h4>{{data.0}}</h4>
-
+<!--
 {% for d in data %}
 <h1>{{d}}</h1>
 {% endfor %}
-
-    <div id="container" style="width: 75%;">
+-->
+  <div id="container" style="width: 75%;">
     <canvas id="pie-chart"></canvas>
   </div>
-
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+  
   <script>
 
     var config = {
@@ -24,8 +18,15 @@
         datasets: [{
           data: {{ data|safe }},
           backgroundColor: [
-            '#696969', '#808080', '#A9A9A9', '#C0C0C0', '#D3D3D3'
+            {% for c in rColours %}
+            'rgba({{c.0}}, {{c.1}}, {{c.2}}, 0.6)',
+            {% endfor %}
           ],
+          borderColor: [
+              {% for c in rColours %}
+                'rgba({{c.0}}, {{c.1}}, {{c.2}}, 1)',
+              {% endfor %}
+            ],
           label: 'Population'
         }],
         labels: {{ labels|safe }}
