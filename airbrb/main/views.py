@@ -9,5 +9,11 @@ def home(response):
 
 
 def graph(response):
-	return render(response, "main/graph.html", {"var1":123213,"data":pedirCosas()})
-	#return HttpResponse("OK")
+	labels = []
+	data = []
+
+	for row in pedirCosas()[1:]:
+		labels.append(row[0])
+		data.append(row[1])
+
+	return render(response, "main/graph.html", {"var1":123213,"labels":labels,"data":data})
