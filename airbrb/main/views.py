@@ -7,6 +7,10 @@ def home(response):
 	return render(response, "main/home.html", {})
 	#return HttpResponse("OK")
 
+def index(response):
+	return render(response, "main/index.html", {})
+	#return HttpResponse("OK")
+
 
 def graph(response):
 	labels = []
