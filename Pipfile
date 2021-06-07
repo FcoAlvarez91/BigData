@@ -5,6 +5,8 @@ name = "pypi"
 
 [packages]
 django = "*"
+boto3 = "*"
+pandas = "*"
 
 [dev-packages]
 

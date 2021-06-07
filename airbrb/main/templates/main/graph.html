@@ -1,0 +1,14 @@
+{% extends 'main/base.html' %}
+{% block content %}
+
+
+<h1> The world has been said hello </h1>
+<h2> And the world said hello back </h2>
+<h4>{{var1}}</h4>
+<h4>{{data.0}}</h4>
+
+{% for d in data %}
+<h1>{{d}}</h1>
+{% endfor %}
+
+{% endblock %}
