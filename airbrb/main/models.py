@@ -7,4 +7,6 @@ class Query:
     city: str
     where: str
     limit: int
+    min:int
+    max:int
     

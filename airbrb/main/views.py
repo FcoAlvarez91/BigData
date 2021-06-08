@@ -17,37 +17,37 @@ def graph(response):
 	labels = []
 	data = []
 	rColours = []
-
-	for row in pedirCosas()[1:]:
+    
+	for row in pedirCosas("price<50")[1:]:
 		labels.append(row[0])
 		data.append(row[1])
 		rColours.append([randint(0,255),randint(0,255),randint(0,255)])
-
+    
 	return render(response, "main/graph.html", {"labels":labels,"data":data,"rColours":rColours})
 
 
 def graph2(response):
 	showData = []
-	for row in pedirCosas()[1:]:
+	for row in pedirCosas("price<50")[1:]:
 		showData.append([row[0],row[1], randint(0,255),randint(0,255),randint(0,255)])
-
+    
 	print(showData)
 	return render(response, "main/graph2.html", {"showData":showData})
 
 def graph3(response):
 	dictCountries = {}
 	randColors = []
-
+    
 	for row in pedirCosas2()[1:]:
 		color1 = randint(0,255)
 		color2 = randint(0,255)
 		color3 = randint(0,255)
-
+        
 		if (row[0] not in dictCountries):
 			dictCountries[row[0]] = []
 			dictCountries[row[0]].append('rgba('+str(color1)+','+str(color2)+','+str(color3)+',0.8)') 
 			#randColors.append('rgba('+str(color1)+','+str(color2)+','+str(color3)+',1)') 
-	
+        
 		dictCountries[row[0]].append([row[1],row[2]])
 	
 	return render(response, "main/graph3.html", {"dictCountries":dictCountries,"randColors":randColors})
@@ -64,19 +64,19 @@ def graph4(response):
 	query.append("select rio_unido_.procedence, rio_lista_reducida_.number_of_reviews, avg(rio_unido_.price) from rio_lista_reducida_ join rio_unido_ on rio_lista_reducida_.id = rio_unido_.listing_id group by rio_lista_reducida_.number_of_reviews, rio_unido_.procedence ")
 	query.append("select sydney_unido_.procedence, sydney_lista_reducida_.number_of_reviews, avg(sydney_unido_.price) from sydney_lista_reducida_ join sydney_unido_ on sydney_lista_reducida_.id = sydney_unido_.listing_id group by sydney_lista_reducida_.number_of_reviews, sydney_unido_.procedence ")
 	query.append("select tokio_unido_.procedence, tokio_lista_reducida_.number_of_reviews, avg(tokio_unido_.price) from tokio_lista_reducida_ join tokio_unido_ on tokio_lista_reducida_.id = tokio_unido_.listing_id group by tokio_lista_reducida_.number_of_reviews, tokio_unido_.procedence ")
-
+    
 	dictCountries = {}
-
+    
 	for q in query:
 		for row in pedirCosaGenerica(q)[1:]:
 			color1 = randint(0,255)
 			color2 = randint(0,255)
 			color3 = randint(0,255)
-
+            
 			if (row[0] not in dictCountries):
 				dictCountries[row[0]] = []
 				dictCountries[row[0]].append('rgba('+str(color1)+','+str(color2)+','+str(color3)+',0.8)') 
-		
+
 			dictCountries[row[0]].append([row[1],row[2]])
 	
 	return render(response, "main/graph3.html", {"dictCountries":dictCountries})
@@ -102,14 +102,23 @@ def something(response):
 	return render(response, "main/something.html", {'search': search})
 
 def AllCitiesGraphs(response):
-
-	#Data Dona
+	search = Query()
+	search.min = response.GET.get('min', None)
+	search.max = response.GET.get('max', None)
+	if search.max < search.min:
+		aux = search.min
+		search.min = search.max
+		search.max = aux
+	rango_precio = "{}<price AND price<{}".format(search.min,search.max)
+	#Data Dona -- usa rango de precios 
 	labels_dona = []
 	data_dona = []
 	rColours_dona = []
-	#Data Barras verticales
+    
+	#Data Barras verticales -- usa rango de precios 
 	showData = []
-	for row in pedirCosas()[1:]:
+    
+	for row in pedirCosas(rango_precio)[1:]:
 		c1 = randint(0,255)
 		c2 = randint(0,255)
 		c3 = randint(0,255)
@@ -117,8 +126,8 @@ def AllCitiesGraphs(response):
 		data_dona.append(row[1])
 		rColours_dona.append([c1,c2,c3])
 		showData.append([row[0],row[1], c1,c2,c3])
-
-	#Data Scatter
+    
+	#Data Scatter -- usa promedio de precios
 	query = []
 	query.append("select amsterdam_unido_.procedence, amsterdam_lista_reducida_.number_of_reviews, avg(amsterdam_unido_.price) from amsterdam_lista_reducida_ join amsterdam_unido_ on amsterdam_lista_reducida_.id = amsterdam_unido_.listing_id group by amsterdam_lista_reducida_.number_of_reviews, amsterdam_unido_.procedence ")
 	query.append("select berlin_unido_.procedence, berlin_lista_reducida_.number_of_reviews, avg(berlin_unido_.price) from berlin_lista_reducida_ join berlin_unido_ on berlin_lista_reducida_.id = berlin_unido_.listing_id group by berlin_lista_reducida_.number_of_reviews, berlin_unido_.procedence ")
@@ -129,19 +138,18 @@ def AllCitiesGraphs(response):
 	query.append("select rio_unido_.procedence, rio_lista_reducida_.number_of_reviews, avg(rio_unido_.price) from rio_lista_reducida_ join rio_unido_ on rio_lista_reducida_.id = rio_unido_.listing_id group by rio_lista_reducida_.number_of_reviews, rio_unido_.procedence ")
 	query.append("select sydney_unido_.procedence, sydney_lista_reducida_.number_of_reviews, avg(sydney_unido_.price) from sydney_lista_reducida_ join sydney_unido_ on sydney_lista_reducida_.id = sydney_unido_.listing_id group by sydney_lista_reducida_.number_of_reviews, sydney_unido_.procedence ")
 	query.append("select tokio_unido_.procedence, tokio_lista_reducida_.number_of_reviews, avg(tokio_unido_.price) from tokio_lista_reducida_ join tokio_unido_ on tokio_lista_reducida_.id = tokio_unido_.listing_id group by tokio_lista_reducida_.number_of_reviews, tokio_unido_.procedence ")
-
+    
 	dictCountries = {}
-
+    
 	for q in query:
 		for row in pedirCosaGenerica(q)[1:]:
 			color1 = randint(0,255)
 			color2 = randint(0,255)
 			color3 = randint(0,255)
-
+            
 			if (row[0] not in dictCountries):
 				dictCountries[row[0]] = []
 				dictCountries[row[0]].append('rgba('+str(color1)+','+str(color2)+','+str(color3)+',0.8)') 
-		
 			dictCountries[row[0]].append([row[1],row[2]])
-
+    
 	return render(response, "main/AllCitiesGraphs.html", {"labels":labels_dona,"data":data_dona,"rColours":rColours_dona, "showData":showData, "dictCountries":dictCountries} )
