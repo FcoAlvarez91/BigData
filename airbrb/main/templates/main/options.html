@@ -9,7 +9,7 @@
 <input type="hidden" id="custId" name="custId" value="3487">
 
 <div class="container text-center">
-    <form action="something/" method="POST" id="optionsForm">
+    <form action="something/" method="GET" id="optionsForm">
         {% csrf_token %}
         <div class="btn-group-vertical w-75">
             <input type="hidden" name="city" value= "{{search.city}}" form="optionsForm" class="btn btn-primary btn-lg btn-block">
