@@ -6,50 +6,42 @@
 <div class="container">
     <h1>Seleccione tipo de busqueda</h1><br><br>
     <div class="container">     
-      <div class="row">
-        <div class="col-sm-6 bg-success text-center ">
-            <form action="/AllCitiesGraphs/" method="POST" id="AllForm">
-                {% csrf_token %}
-                <h1>Gráficos comparativos de todas las ciudades disponibles</h1>
-                <button type="submit" name="all" value="Amsterdam" form="AllForm" class="btn btn-primary btn-lg btn-block">AAA</button> <br>
-            </form>
+        <div class="row">
+            <div class="col-sm-6 bg-success text-center ">
+                <form action="/AllCitiesGraphs/" method="GET" id="AllForm">
+                    <h1>Gráficos comparativos de todas las ciudades disponibles</h1>
+                    <div class="row">
+                        <h3>Ingrese valor minimo para su busqueda de residencia: 
+                            <input type="number" value=0 name="min" min="0" max="10000" form="AllForm">
+                        </h3>
+                    </div>
+                    <div class="row">
+                        <h3>Ingrese valor maximo para su busqueda de residencia: 
+                            <input type="number" value=10000 name="max" min="0" max="10000" form="AllForm">
+                        </h3>
+                    </div>
+                    <button type="submit"  form="AllForm" class="btn btn-primary btn-lg btn-block">AAA</button> <br>
+                </form>
+            </div>
+            <div class="col-sm-6 bg-warning text-center">
+                <h1>Gráficos Segun Ciudad</h1>
+                <form action="options/" method="GET" id="cityForm">         
+                    <button type="submit" name="city" value="Amsterdam" form="cityForm" class="btn btn-primary btn-lg btn-block">Amsterdam</button>
+                    <button type="submit" name="city" value="Berlin" form="cityForm" class="btn btn-primary btn-lg btn-block">Berlin</button>
+                    <button type="submit" name="city" value="Edinburgh" form="cityForm" class="btn btn-primary btn-lg btn-block">Edinburgh</button>
+                    <button type="submit" name="city" value="Istanbul" form="cityForm" class="btn btn-primary btn-lg btn-block">Istanbul</button>
+                    <button type="submit" name="city" value="LA" form="cityForm" class="btn btn-primary btn-lg btn-block">LA</button>
+                    <button type="submit" name="city" value="Madrid" form="cityForm" class="btn btn-primary btn-lg btn-block">Madrid</button>
+                    <button type="submit" name="city" value="Melbourne" form="cityForm" class="btn btn-primary btn-lg btn-block">Melbourne</button>
+                    <button type="submit" name="city" value="Paris" form="cityForm" class="btn btn-primary btn-lg btn-block">Paris</button>
+                    <button type="submit" name="city" value="Rio" form="cityForm" class="btn btn-primary btn-lg btn-block">Rio de Janeiro</button>
+                    <button type="submit" name="city" value="Sydney" form="cityForm" class="btn btn-primary btn-lg btn-block">Sydney</button>
+                    <button type="submit" name="city" value="Tokyo" form="cityForm" class="btn btn-primary btn-lg btn-block">Tokyo</button>
+                </form>
+            </div>
         </div>
-        <div class="col-sm-6 bg-warning text-center">
-            <h1>Gráficos Segun Ciudad</h1>
-            <form action="options/" method="GET" id="cityForm">         
-                <button type="submit" name="city" value="Amsterdam" form="cityForm" class="btn btn-primary btn-lg btn-block">Amsterdam</button>
-                <button type="submit" name="city" value="Berlin" form="cityForm" class="btn btn-primary btn-lg btn-block">Berlin</button>
-                <button type="submit" name="city" value="Edinburgh" form="cityForm" class="btn btn-primary btn-lg btn-block">Edinburgh</button>
-                <button type="submit" name="city" value="Istanbul" form="cityForm" class="btn btn-primary btn-lg btn-block">Istanbul</button>
-                <button type="submit" name="city" value="LA" form="cityForm" class="btn btn-primary btn-lg btn-block">LA</button>
-                <button type="submit" name="city" value="Madrid" form="cityForm" class="btn btn-primary btn-lg btn-block">Madrid</button>
-                <button type="submit" name="city" value="Melbourne" form="cityForm" class="btn btn-primary btn-lg btn-block">Melbourne</button>
-                <button type="submit" name="city" value="Paris" form="cityForm" class="btn btn-primary btn-lg btn-block">Paris</button>
-                <button type="submit" name="city" value="Rio" form="cityForm" class="btn btn-primary btn-lg btn-block">Rio de Janeiro</button>
-                <button type="submit" name="city" value="Sydney" form="cityForm" class="btn btn-primary btn-lg btn-block">Sydney</button>
-                <button type="submit" name="city" value="Tokyo" form="cityForm" class="btn btn-primary btn-lg btn-block">Tokyo</button>
-            </form>
-        </div>
-      </div>
     </div>
+</div>
 
 
 {% endblock %}
-
-
-<form action="options/" method="POST" id="cityForm">
-    {% csrf_token %}
-    <div class="row w-75">
-        <button type="submit" name="city" value="Amsterdam" form="cityForm" class="btn btn-primary btn-lg btn-block">Amsterdam</button>
-        <button type="submit" name="city" value="Berlin" form="cityForm" class="btn btn-primary btn-lg btn-block">Berlin</button>
-        <button type="submit" name="city" value="Edinburgh" form="cityForm" class="btn btn-primary btn-lg btn-block">Edinburgh</button>
-        <button type="submit" name="city" value="Istanbul" form="cityForm" class="btn btn-primary btn-lg btn-block">Istanbul</button>
-        <button type="submit" name="city" value="LA" form="cityForm" class="btn btn-primary btn-lg btn-block">LA</button>
-        <button type="submit" name="city" value="Madrid" form="cityForm" class="btn btn-primary btn-lg btn-block">Madrid</button>
-        <button type="submit" name="city" value="Melbourne" form="cityForm" class="btn btn-primary btn-lg btn-block">Melbourne</button>
-        <button type="submit" name="city" value="Paris" form="cityForm" class="btn btn-primary btn-lg btn-block">Paris</button>
-        <button type="submit" name="city" value="Rio" form="cityForm" class="btn btn-primary btn-lg btn-block">Rio de Janeiro</button>
-        <button type="submit" name="city" value="Sydney" form="cityForm" class="btn btn-primary btn-lg btn-block">Sydney</button>
-        <button type="submit" name="city" value="Tokyo" form="cityForm" class="btn btn-primary btn-lg btn-block">Tokyo</button>
-    </div>
-</form>
