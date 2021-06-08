@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from re import search
+from django.shortcuts import redirect, render
 from django.http import HttpResponse, request
 from .athena import pedirCosas, pedirCosas2, pedirCosaGenerica
 from .query import query_agreggator
@@ -30,6 +31,8 @@ def graph2(response):
 	showData = []
 	for row in pedirCosas()[1:]:
 		showData.append([row[0],row[1], randint(0,255),randint(0,255),randint(0,255)])
+
+
 
 	print(showData)
 	return render(response, "main/graph2.html", {"showData":showData})
@@ -92,11 +95,31 @@ def options(response):
 #	context['system'] = system
 #	return render(response, "main/options.html", context)
 	search = Query()
-	search.city = response.POST.get('city', None)
+	search.city = response.GET.get('city', None)
 	return render(response, "main/options.html", {'search': search})	
+
+def options(response):
+	search = Query()
+	return render(response, "main/options.html", {'search': search})
 
 def something(response):
 	search = Query()
 	search.city = response.POST.get('city', None)
 	search.limit = response.POST.get('limit', None)
 	return render(response, "main/something.html", {'search': search})
+
+
+def cityBudget(response):
+
+	dato = response.GET.get('city','')
+
+	#Opciones A, tapar en ifs
+	#Opcion B, hacer un diccionario con los query y pasarle cuidad como key
+	query = []
+	query.append("SELECT neighbourhood, Count(price) FROM amsterdam_lista_reducida_ JOIN amsterdam_unido_ ON amsterdam_lista_reducida_.id = amsterdam_unido_.listing_id WHERE price<=50 GROUP BY neighbourhood")
+
+	showData = []
+	for row in pedirCosaGenerica(query[0])[1:]:
+		showData.append([row[0],row[1], randint(0,255),randint(0,255),randint(0,255)])
+
+	return render(response, "main/citydetail.html", {"showData": showData})

@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container text-center">
-    <form action="options/" method="POST" id="cityForm">
+    <form action="options/" method="GET" id="cityForm">
         {% csrf_token %}
         <div class="btn-group-vertical w-75">
             <button type="submit" name="city" value="Amsterdam" form="cityForm" class="btn btn-primary btn-lg btn-block">Am git sterdam</button>
