@@ -10,13 +10,12 @@ var ctx = document.getElementById('myChart').getContext('2d');
 
 var myChart = new Chart(ctx, {
     type: 'bar',
-
     data: {
         labels: ["Precio Promedio"],
         datasets: [
         {% for n in showData %}
         {
-            label: {{ n.0 }},
+            label: '{{ n.0 }}',
             data: [{{ n.1 }}],
             backgroundColor: [
                 'rgba({{n.2}}, {{n.3}}, {{n.4}}, 0.2)',
@@ -39,6 +38,5 @@ var myChart = new Chart(ctx, {
     }
 });
 </script>
-  </body>
-</html>
+
 {% endblock %}
