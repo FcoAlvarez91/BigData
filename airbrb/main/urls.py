@@ -11,4 +11,5 @@ path("city/options/something/", views.something, name="something"),
 path("AllCitiesGraphs/", views.AllCitiesGraphs, name="AllCitiesGraphs"),
 path("graph2/", views.graph2, name="graph2"),
 path("graph3/", views.graph4, name="graph3"),
+path("citydetail/", views.cityBudget, name="citydetail")
 ]
