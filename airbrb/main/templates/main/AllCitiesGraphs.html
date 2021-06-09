@@ -1,0 +1,121 @@
+{% extends 'main/base.html' %}
+{% block content %}
+
+<!--
+{% for d in data %}
+<h1>{{d}}</h1>
+{% endfor %}
+-->
+<div id="container" style="width: 75%;">
+    <h1>Cantidad de residencias en el rango de precio. (Dona)</h1>
+    <canvas id="pie-chart"></canvas>
+</div>  
+{% comment %} Chart Dona {% endcomment %}
+<script>
+    var config = {
+        type: 'doughnut',
+        data: {
+            datasets: [{
+                data: {{ data|safe }},
+                backgroundColor: [
+                    {% for c in rColours %}
+                    'rgba({{c.0}}, {{c.1}}, {{c.2}}, 0.6)',
+                    {% endfor %}
+                ],
+                borderColor: [
+                    {% for c in rColours %}
+                    'rgba({{c.0}}, {{c.1}}, {{c.2}}, 1)',
+                    {% endfor %}
+                ],
+                label: 'Population'
+            }],
+            labels: {{ labels|safe }}
+        },
+        options: {
+        responsive: true
+        }
+    };
+    window.onload = function() {
+        var ctx = document.getElementById('pie-chart').getContext('2d');
+        window.myPie = new Chart(ctx, config);
+    };
+</script>
+
+{% comment %} Chart vertical {% endcomment %}
+<div id="container" style="width: 75%;">
+    <h1>Cantidad de residencias en el rango de precio.</h1>
+    <canvas id="vertical_chart"></canvas>
+</div>
+<script>
+    var ctx = document.getElementById('vertical_chart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ["Residencias"],
+            datasets: [
+            {% for n in showData %}
+            {
+                label: '{{ n.0 }}',
+                data: [{{ n.1 }}],
+                backgroundColor: [
+                    'rgba({{n.2}}, {{n.3}}, {{n.4}}, 0.6)',
+                ],
+                borderColor: [
+                    'rgba({{n.2}}, {{n.3}}, {{n.4}}, 1)',
+                ],
+                borderWidth: 1
+            },
+            {% endfor %}
+            ]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            },
+            responsive: true
+        }
+    });
+</script>
+
+{% comment %} Chart Scatter {% endcomment %}
+
+<div id="container" style="width: 75%;">
+    <h1>Cantidad de reseñas por precio. (Barra)</h1>
+    <canvas id="scatter_chart" width="600" height="600"></canvas> 
+</div>
+
+<script>
+    var ctx = document.getElementById("scatter_chart").getContext('2d');
+    var options = {responsive: true, // Instruct chart js to respond nicely.
+        maintainAspectRatio: false, // Add to prevent default behaviour of full-width/height 
+    };
+
+    // End Defining data
+    var myChart = new Chart(ctx, {
+        type: 'scatter',
+        data: {
+            datasets: [
+                {% for k, v in dictCountries.items %}
+                {
+                    label: "{{k}}", 
+                    data: [
+                        {% for n in v %}
+                        {% if forloop.counter0 != 0 %}
+                        { x: {{n.0}} , y: {{n.1}} },
+                        {% endif %}
+                        {% endfor %}
+                    
+                    ],
+                    borderColor: "{{v.0}}",       
+                    backgroundColor: "{{v.0}}",
+                },
+                {% endfor %}
+            ]
+            
+        },
+        options: options
+    });
+</script>
+{% endblock %}

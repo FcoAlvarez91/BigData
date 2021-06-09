@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<!-- <h1>{{system}}</h1> -->
+
+<h1>Bucando en: {{search.city}}{{search.limit}}</h1>
+
+<input type="hidden" id="custId" name="custId" value="3487">
+
+<div class="container text-center">
+    <form action="something/" method="GET" id="optionsForm">
+        {% csrf_token %}
+        <div class="btn-group-vertical w-75">
+            <input type="hidden" name="city" value= "{{search.city}}" form="optionsForm" class="btn btn-primary btn-lg btn-block">
+            <input type="number" id="quantity" name="limit" min="1" max="5" form="optionsForm">
+            <input type="submit">
+        </div>
+    </form>
+</div>
+{% endblock %}
