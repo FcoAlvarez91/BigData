@@ -8,6 +8,7 @@ django = "*"
 boto3 = "*"
 pandas = "*"
 python-decouple = "*"
+gunicorn = "*"
 
 [dev-packages]
 
