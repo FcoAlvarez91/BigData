@@ -28,7 +28,7 @@ aws_secret_access_key = os.environ.get('aws_secret_access_key')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['https://air-brb.herokuapp.com/']
 
 
 # Application definition
