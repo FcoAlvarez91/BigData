@@ -3,6 +3,7 @@
 {% block content %}
 
 <div id="container" style="width: 75%;">
+    <h1>Cantidad de residencias en el rango de precio.</h1>
     <canvas id="myChart"></canvas>
 </div>
 
@@ -12,7 +13,7 @@ var ctx = document.getElementById('myChart').getContext('2d');
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["Precio Promedio"],
+        labels: ["Residencias"],
         datasets: [
         {% for n in showData %}
         {
