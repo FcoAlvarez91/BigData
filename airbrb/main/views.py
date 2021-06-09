@@ -107,7 +107,10 @@ def options(response):
 	city = "{0}".format(search.city.lower())
 	rango_precio = "{}<price AND price<{}".format(search.min,search.max)
 	query = []
-	query.append("SELECT neighbourhood, Count(price) FROM {1}_lista_reducida_ JOIN {1}_unido_ ON {1}_lista_reducida_.id = {1}_unido_.listing_id WHERE {0} AND neighbourhood IS NOT NULL  GROUP BY neighbourhood".format(rango_precio, city))
+	if city == "istambul":
+		query.append("SELECT neighbourhood, Count(price) FROM {1}_lista_reducida_ JOIN {1}_       ON {1}_lista_reducida_.id = {1}_.listing_id       WHERE {0} AND neighbourhood IS NOT NULL  GROUP BY neighbourhood".format(rango_precio, city))
+	else:
+		query.append("SELECT neighbourhood, Count(price) FROM {1}_lista_reducida_ JOIN {1}_unido_ ON {1}_lista_reducida_.id = {1}_unido_.listing_id WHERE {0} AND neighbourhood IS NOT NULL  GROUP BY neighbourhood".format(rango_precio, city))
 
 	showData = []
 	for row in pedirCosaGenerica(query[0])[1:]:
