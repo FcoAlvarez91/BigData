@@ -139,7 +139,7 @@ def AllCitiesGraphs(response):
 	search = Query()
 	search.min = response.GET.get('min', None)
 	search.max = response.GET.get('max', None)
-	if search.max < search.min:
+	if float(search.max) < float(search.min):
 		aux = search.min
 		search.min = search.max
 		search.max = aux
