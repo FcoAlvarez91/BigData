@@ -90,18 +90,30 @@ def index(response):
 def city(response):
 	return render(response, "main/city.html", {})
 
-def options(response):
-#	context = {}
-#	system = response.POST.get('system', None)
-#	context['system'] = system
-#	return render(response, "main/options.html", context)
-	search = Query()
-	search.city = response.GET.get('city', None)
-	return render(response, "main/options.html", {'search': search})	
 
 def options(response):
+	#	context = {}
+	#	system = response.POST.get('system', None)
+	#	context['system'] = system
+	#	return render(response, "main/options.html", context)
 	search = Query()
-	return render(response, "main/options.html", {'search': search})
+	search.city = response.GET.get('city', None)
+	search.min = response.GET.get('max', None)
+	search.max = response.GET.get('min', None)
+	if search.max < search.min:
+		aux = search.min
+		search.min = search.max
+		search.max = aux
+	city = "{0}".format(search.city.lower())
+	rango_precio = "{}<price AND price<{}".format(search.min,search.max)
+	query = []
+	query.append("SELECT neighbourhood, Count(price) FROM {1}_lista_reducida_ JOIN {1}_unido_ ON {1}_lista_reducida_.id = {1}_unido_.listing_id WHERE {0} AND neighbourhood IS NOT NULL  GROUP BY neighbourhood".format(rango_precio, city))
+
+	showData = []
+	for row in pedirCosaGenerica(query[0])[1:]:
+		showData.append([row[0],row[1], randint(0,255),randint(0,255),randint(0,255)])
+
+	return render(response, "main/citydetail.html", {"showData": showData})
 
 def something(response):
 	search = Query()
