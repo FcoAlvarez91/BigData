@@ -7,6 +7,7 @@
 {% endfor %}
 -->
 <div id="container" style="width: 75%;">
+    <h1>Cantidad de residencias en el rango de precio. (Dona)</h1>
     <canvas id="pie-chart"></canvas>
 </div>  
 {% comment %} Chart Dona {% endcomment %}
@@ -42,21 +43,22 @@
 
 {% comment %} Chart vertical {% endcomment %}
 <div id="container" style="width: 75%;">
-<canvas id="vertical_chart"></canvas>
+    <h1>Cantidad de residencias en el rango de precio.</h1>
+    <canvas id="vertical_chart"></canvas>
 </div>
 <script>
     var ctx = document.getElementById('vertical_chart').getContext('2d');
     var myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: ["Precio Promedio"],
+            labels: ["Residencias"],
             datasets: [
             {% for n in showData %}
             {
                 label: '{{ n.0 }}',
                 data: [{{ n.1 }}],
                 backgroundColor: [
-                    'rgba({{n.2}}, {{n.3}}, {{n.4}}, 0.2)',
+                    'rgba({{n.2}}, {{n.3}}, {{n.4}}, 0.6)',
                 ],
                 borderColor: [
                     'rgba({{n.2}}, {{n.3}}, {{n.4}}, 1)',
@@ -79,7 +81,8 @@
 
 {% comment %} Chart Scatter {% endcomment %}
 
-<div id="container" >
+<div id="container" style="width: 75%;">
+    <h1>Cantidad de reseñas por precio. (Barra)</h1>
     <canvas id="scatter_chart" width="600" height="600"></canvas> 
 </div>
 

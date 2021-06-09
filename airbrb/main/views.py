@@ -13,73 +13,77 @@ def home(response):
 	return render(response, "main/home.html", {})
 	#return HttpResponse("OK")
 
+def index(response):
+	return render(response, "main/index.html", {})
+	#return HttpResponse("OK")
 
-def graph(response):
-	labels = []
-	data = []
-	rColours = []
+
+# def graph(response):
+# 	labels = []
+# 	data = []
+# 	rColours = []
     
-	for row in pedirCosas("price<50")[1:]:
-		labels.append(row[0])
-		data.append(row[1])
-		rColours.append([randint(0,255),randint(0,255),randint(0,255)])
+# 	for row in pedirCosas("price<50")[1:]:
+# 		labels.append(row[0])
+# 		data.append(row[1])
+# 		rColours.append([randint(0,255),randint(0,255),randint(0,255)])
     
-	return render(response, "main/graph.html", {"labels":labels,"data":data,"rColours":rColours})
+# 	return render(response, "main/graph.html", {"labels":labels,"data":data,"rColours":rColours})
 
 
-def graph2(response):
-	showData = []
-	for row in pedirCosas("price<50")[1:]:
-		showData.append([row[0],row[1], randint(0,255),randint(0,255),randint(0,255)])
-	print(showData)
-	return render(response, "main/graph2.html", {"showData":showData})
+# def graph2(response):
+# 	showData = []
+# 	for row in pedirCosas("price<50")[1:]:
+# 		showData.append([row[0],row[1], randint(0,255),randint(0,255),randint(0,255)])
+# 	print(showData)
+# 	return render(response, "main/graph2.html", {"showData":showData})
 
-def graph3(response):
-	dictCountries = {}
-	randColors = []
+# def graph3(response):
+# 	dictCountries = {}
+# 	randColors = []
     
-	for row in pedirCosas2()[1:]:
-		color1 = randint(0,255)
-		color2 = randint(0,255)
-		color3 = randint(0,255)
+# 	for row in pedirCosas2()[1:]:
+# 		color1 = randint(0,255)
+# 		color2 = randint(0,255)
+# 		color3 = randint(0,255)
         
-		if (row[0] not in dictCountries):
-			dictCountries[row[0]] = []
-			dictCountries[row[0]].append('rgba('+str(color1)+','+str(color2)+','+str(color3)+',0.8)') 
-			#randColors.append('rgba('+str(color1)+','+str(color2)+','+str(color3)+',1)') 
+# 		if (row[0] not in dictCountries):
+# 			dictCountries[row[0]] = []
+# 			dictCountries[row[0]].append('rgba('+str(color1)+','+str(color2)+','+str(color3)+',0.8)') 
+# 			#randColors.append('rgba('+str(color1)+','+str(color2)+','+str(color3)+',1)') 
         
-		dictCountries[row[0]].append([row[1],row[2]])
+# 		dictCountries[row[0]].append([row[1],row[2]])
 	
-	return render(response, "main/graph3.html", {"dictCountries":dictCountries,"randColors":randColors})
+# 	return render(response, "main/graph3.html", {"dictCountries":dictCountries,"randColors":randColors})
 
-def graph4(response):
+# def graph4(response):
 
-	query = []
-	query.append("select amsterdam_unido_.procedence, amsterdam_lista_reducida_.number_of_reviews, avg(amsterdam_unido_.price) from amsterdam_lista_reducida_ join amsterdam_unido_ on amsterdam_lista_reducida_.id = amsterdam_unido_.listing_id group by amsterdam_lista_reducida_.number_of_reviews, amsterdam_unido_.procedence ")
-	query.append("select berlin_unido_.procedence, berlin_lista_reducida_.number_of_reviews, avg(berlin_unido_.price) from berlin_lista_reducida_ join berlin_unido_ on berlin_lista_reducida_.id = berlin_unido_.listing_id group by berlin_lista_reducida_.number_of_reviews, berlin_unido_.procedence ")
-	query.append("select edinburgh_unido_.procedence, edinburgh_lista_reducida_.number_of_reviews, avg(edinburgh_unido_.price) from edinburgh_lista_reducida_ join edinburgh_unido_ on edinburgh_lista_reducida_.id = edinburgh_unido_.listing_id group by edinburgh_lista_reducida_.number_of_reviews, edinburgh_unido_.procedence ")
-	query.append("select istambul_.procedence, istambul_lista_reducida_.number_of_reviews, avg(istambul_.price) from istambul_lista_reducida_ join  istambul_ on istambul_lista_reducida_.id = istambul_.listing_id WHERE istambul_lista_reducida_.number_of_reviews IS NOT NULL group by  istambul_lista_reducida_.number_of_reviews, istambul_.procedence  ")
-	query.append("select madrid_unido_.procedence, madrid_lista_reducida_.number_of_reviews, avg(madrid_unido_.price) from madrid_lista_reducida_ join madrid_unido_ on madrid_lista_reducida_.id = madrid_unido_.listing_id group by madrid_lista_reducida_.number_of_reviews, madrid_unido_.procedence ")
-	query.append("select paris_unido_.procedence, paris_lista_reducida_.number_of_reviews, avg(paris_unido_.price) from paris_lista_reducida_ join paris_unido_ on paris_lista_reducida_.id = paris_unido_.listing_id group by paris_lista_reducida_.number_of_reviews, paris_unido_.procedence ")
-	query.append("select rio_unido_.procedence, rio_lista_reducida_.number_of_reviews, avg(rio_unido_.price) from rio_lista_reducida_ join rio_unido_ on rio_lista_reducida_.id = rio_unido_.listing_id group by rio_lista_reducida_.number_of_reviews, rio_unido_.procedence ")
-	query.append("select sydney_unido_.procedence, sydney_lista_reducida_.number_of_reviews, avg(sydney_unido_.price) from sydney_lista_reducida_ join sydney_unido_ on sydney_lista_reducida_.id = sydney_unido_.listing_id group by sydney_lista_reducida_.number_of_reviews, sydney_unido_.procedence ")
-	query.append("select tokio_unido_.procedence, tokio_lista_reducida_.number_of_reviews, avg(tokio_unido_.price) from tokio_lista_reducida_ join tokio_unido_ on tokio_lista_reducida_.id = tokio_unido_.listing_id group by tokio_lista_reducida_.number_of_reviews, tokio_unido_.procedence ")
+# 	query = []
+# 	query.append("select amsterdam_unido_.procedence, amsterdam_lista_reducida_.number_of_reviews, avg(amsterdam_unido_.price) from amsterdam_lista_reducida_ join amsterdam_unido_ on amsterdam_lista_reducida_.id = amsterdam_unido_.listing_id group by amsterdam_lista_reducida_.number_of_reviews, amsterdam_unido_.procedence ")
+# 	query.append("select berlin_unido_.procedence, berlin_lista_reducida_.number_of_reviews, avg(berlin_unido_.price) from berlin_lista_reducida_ join berlin_unido_ on berlin_lista_reducida_.id = berlin_unido_.listing_id group by berlin_lista_reducida_.number_of_reviews, berlin_unido_.procedence ")
+# 	query.append("select edinburgh_unido_.procedence, edinburgh_lista_reducida_.number_of_reviews, avg(edinburgh_unido_.price) from edinburgh_lista_reducida_ join edinburgh_unido_ on edinburgh_lista_reducida_.id = edinburgh_unido_.listing_id group by edinburgh_lista_reducida_.number_of_reviews, edinburgh_unido_.procedence ")
+# 	query.append("select istambul_.procedence, istambul_lista_reducida_.number_of_reviews, avg(istambul_.price) from istambul_lista_reducida_ join  istambul_ on istambul_lista_reducida_.id = istambul_.listing_id WHERE istambul_lista_reducida_.number_of_reviews IS NOT NULL group by  istambul_lista_reducida_.number_of_reviews, istambul_.procedence  ")
+# 	query.append("select madrid_unido_.procedence, madrid_lista_reducida_.number_of_reviews, avg(madrid_unido_.price) from madrid_lista_reducida_ join madrid_unido_ on madrid_lista_reducida_.id = madrid_unido_.listing_id group by madrid_lista_reducida_.number_of_reviews, madrid_unido_.procedence ")
+# 	query.append("select paris_unido_.procedence, paris_lista_reducida_.number_of_reviews, avg(paris_unido_.price) from paris_lista_reducida_ join paris_unido_ on paris_lista_reducida_.id = paris_unido_.listing_id group by paris_lista_reducida_.number_of_reviews, paris_unido_.procedence ")
+# 	query.append("select rio_unido_.procedence, rio_lista_reducida_.number_of_reviews, avg(rio_unido_.price) from rio_lista_reducida_ join rio_unido_ on rio_lista_reducida_.id = rio_unido_.listing_id group by rio_lista_reducida_.number_of_reviews, rio_unido_.procedence ")
+# 	query.append("select sydney_unido_.procedence, sydney_lista_reducida_.number_of_reviews, avg(sydney_unido_.price) from sydney_lista_reducida_ join sydney_unido_ on sydney_lista_reducida_.id = sydney_unido_.listing_id group by sydney_lista_reducida_.number_of_reviews, sydney_unido_.procedence ")
+# 	query.append("select tokio_unido_.procedence, tokio_lista_reducida_.number_of_reviews, avg(tokio_unido_.price) from tokio_lista_reducida_ join tokio_unido_ on tokio_lista_reducida_.id = tokio_unido_.listing_id group by tokio_lista_reducida_.number_of_reviews, tokio_unido_.procedence ")
     
-	dictCountries = {}
+# 	dictCountries = {}
     
-	for q in query:
-		for row in pedirCosaGenerica(q)[1:]:
-			color1 = randint(0,255)
-			color2 = randint(0,255)
-			color3 = randint(0,255)
+# 	for q in query:
+# 		for row in pedirCosaGenerica(q)[1:]:
+# 			color1 = randint(0,255)
+# 			color2 = randint(0,255)
+# 			color3 = randint(0,255)
             
-			if (row[0] not in dictCountries):
-				dictCountries[row[0]] = []
-				dictCountries[row[0]].append('rgba('+str(color1)+','+str(color2)+','+str(color3)+',0.8)') 
+# 			if (row[0] not in dictCountries):
+# 				dictCountries[row[0]] = []
+# 				dictCountries[row[0]].append('rgba('+str(color1)+','+str(color2)+','+str(color3)+',0.8)') 
 
-			dictCountries[row[0]].append([row[1],row[2]])
+# 			dictCountries[row[0]].append([row[1],row[2]])
 	
-	return render(response, "main/graph3.html", {"dictCountries":dictCountries})
+# 	return render(response, "main/graph3.html", {"dictCountries":dictCountries})
 
 
 
@@ -172,7 +176,6 @@ def AllCitiesGraphs(response):
 	query.append("select rio_unido_.procedence, rio_lista_reducida_.number_of_reviews, avg(rio_unido_.price) from rio_lista_reducida_ join rio_unido_ on rio_lista_reducida_.id = rio_unido_.listing_id WHERE rio_lista_reducida_.number_of_reviews IS NOT NULL AND ({0}<rio_unido_.price AND rio_unido_.price<{1}) group by rio_lista_reducida_.number_of_reviews, rio_unido_.procedence  ".format(search.min,search.max))
 	query.append("select sydney_unido_.procedence, sydney_lista_reducida_.number_of_reviews, avg(sydney_unido_.price) from sydney_lista_reducida_ join sydney_unido_ on sydney_lista_reducida_.id = sydney_unido_.listing_id WHERE sydney_lista_reducida_.number_of_reviews IS NOT NULL AND ({0}<sydney_unido_.price AND sydney_unido_.price<{1}) group by sydney_lista_reducida_.number_of_reviews, sydney_unido_.procedence  ".format(search.min,search.max))
 	query.append("select tokio_unido_.procedence, tokio_lista_reducida_.number_of_reviews, avg(tokio_unido_.price) from tokio_lista_reducida_ join tokio_unido_ on tokio_lista_reducida_.id = tokio_unido_.listing_id WHERE tokio_lista_reducida_.number_of_reviews IS NOT NULL AND ({0}<tokio_unido_.price AND tokio_unido_.price<{1}) group by tokio_lista_reducida_.number_of_reviews, tokio_unido_.procedence  ".format(search.min,search.max))
-    
 	
 	dictCountries = {}
     
