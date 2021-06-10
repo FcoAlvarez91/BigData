@@ -9,4 +9,5 @@ class Query:
     limit: int
     min:int
     max:int
+    neighbourhood:str
     

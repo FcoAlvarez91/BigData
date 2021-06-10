@@ -1,0 +1,61 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+
+<div id="container" style="width: 75%;">
+    <h1>Cantidad de residencias con valor entre {{data.min}} y {{data.max}} dolares para {{data.city}}.</h1>
+    <canvas id="myChart"></canvas>
+</div>
+<div>
+    <div class="row">
+        <div class="col-sm-6 text-center">
+            <h1>Comparar Barrios</h1>
+            <form action="/something/" method="GET" id="cityForm">  
+                <div class="row">  
+                    <input type="hidden" name="min" value="{{data.min}}"  form="cityForm">
+                    <input type="hidden" name="max" value="{{data.max}}"  form="cityForm">
+                    <input type="hidden" name="city" value="{{data.city}}" form="cityForm"> 
+                    {% for n in showData %}
+                    <button type="submit" name="neighbourhood" value="{{n.0}}" form="cityForm" class="btn btn-primary btn-sm btn-block">{{n.0}}</button>
+                    <br>
+                    {% endfor %}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script>
+var ctx = document.getElementById('myChart').getContext('2d');
+
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["Residencias"],
+        datasets: [
+        {% for n in showData %}
+        {
+            label: '{{ n.0 }}',
+            data: [{{ n.1 }}],
+            backgroundColor: [
+                'rgba({{n.2}}, {{n.3}}, {{n.4}}, 0.2)',
+            ],
+            borderColor: [
+                'rgba({{n.2}}, {{n.3}}, {{n.4}}, 1)',
+            ],
+            borderWidth: 1
+        },
+        {% endfor %}
+        ]
+    },
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        },
+        responsive: true
+    }
+});
+</script>
+
+{% endblock %}

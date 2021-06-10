@@ -1,0 +1,13 @@
+{% extends 'main/base.html' %}
+
+{% block content %}
+<br>
+<h1>Para el vecindario {{data.neighbourhood}} de {{data.city}} por un precio entre {{data.min}} y {{data.max}} estan los siguientes lugares disponibles:</h1>
+<div class="container ">
+    {% for k,v in dictPlace.items %}
+        {% for num in v %}
+            <li>{{num.0}}</li><br>
+        {% endfor %}
+    {% endfor %}
+</div>
+{% endblock %}

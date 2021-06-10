@@ -24,11 +24,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 aws_access_key_id = os.environ.get('aws_access_key_id')
 aws_secret_access_key = os.environ.get('aws_secret_access_key')
-
+SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['https://air-brb.herokuapp.com/']
+ALLOWED_HOSTS = ['https://air-brb.herokuapp.com/', '127.0.0.1']
 
 
 # Application definition
