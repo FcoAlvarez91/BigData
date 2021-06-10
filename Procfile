@@ -1,1 +1,1 @@
-web: gunicorn airbrb.wsgi
+web: gunicorn airbrb.airbrb.wsgi
